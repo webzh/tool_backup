@@ -5,6 +5,7 @@ Shadowsocks 一键安装脚本（四合一）感谢秋水逸冰大神提供 http
 
 ## tool_backup/yii2_env_shell ##
 ### Yii2 PHP环境安装 ###
+#### 以下均为CentOS7系统下执行 ####
 ##### 初始化 #####
 ```shell
 # 注意路径opt修改为自己的
