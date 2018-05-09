@@ -1,0 +1,71 @@
+[mysql]
+#CLIENT #
+host                           = 127.0.0.1
+port                           = 3306
+socket                         = /data/mysqldb/run/mysql3306.sock
+default-character-set          = utf8mb4
+
+[mysqld]
+port                           = 3306
+character-set-server           = utf8mb4
+default-storage-engine         = InnoDB
+datadir                        = /data/mysqldb/3306
+socket                         = /data/mysqldb/run/mysql3306.sock
+pid-file                       = /data/mysqldb/run/mysql3306.pid
+
+# SAFETY #
+max-allowed-packet             = 256M
+max-connect-errors             = 10000000
+skip-name-resolve
+sysdate-is-now                 = 1
+
+# BINARY LOGGING #
+server-id = 3306001
+log_bin                        = /data/mysqldb/binlog/mysql-bin
+#log_bin                        = OFF
+expire-logs-days               = 7
+sync-binlog                    = 1
+#sync-binlog                    = 0
+max-binlog-size = 1G
+binlog-cache-size = 8M
+binlog-format = MIXED
+binlog-do-db = test
+binlog-ignore-db = information_schema
+binlog-ignore-db = mysql
+binlog-ignore-db = performance_schema
+binlog-ignore-db = sys
+
+# binlog group commit Multi-threaded replication #
+binlog_group_commit_sync_delay = 20
+binlog_group_commit_sync_no_delay_count = 20
+
+# CACHES AND LIMITS #
+tmp-table-size                 = 256M
+max-heap-table-size            = 256M
+query-cache-type               = 0
+query-cache-size               = 0
+max-connections                = 15000
+thread-cache-size              = 100
+open-files-limit               = 65535
+table-definition-cache         = 2048
+table-open-cache               = 4096
+
+# INNODB #
+innodb-flush-method            = O_DIRECT
+#innodb-log-files-in-group      = 2
+#innodb-log-file-size           = 512M
+#innodb_file_per_table          = 1
+#innodb_thread_concurrency      = 0
+#innodb_thread_sleep_delay       = 10
+#innodb_flush_log_at_trx_commit  = 1
+innodb_max_dirty_pages_pct      = 90
+innodb_lock_wait_timeout        = 30
+innodb_rollback_on_timeout      = ON
+innodb-buffer-pool-size         = 1G
+
+# LOG #
+log_error   = /data/mysqldb/logs/3306-error.log
+log-queries-not-using-indexes  = 1
+slow-query-log                 = 1
+long-query-time = 3
+slow-query-log_file = /data/mysqldb/logs/mysql-slow-3306.log

@@ -1,0 +1,61 @@
+[mysql]
+#CLIENT #
+host                           = 127.0.0.1
+port                           = 3306
+socket                         = /data/mysqldb/run/mysql3306.sock
+default-character-set=utf8
+
+[mysqld]
+port                           = 3306
+character-set-server=utf8
+default-storage-engine         = InnoDB
+datadir                        = /data/mysqldb/3306
+socket                         = /data/mysqldb/run/mysql3306.sock
+pid-file                       = /data/mysqldb/run/mysql3306.pid
+
+# SAFETY #
+max-allowed-packet             = 128M
+max-connect-errors             = 1000000
+skip-name-resolve
+sysdate-is-now                 = 1
+
+# BINARY LOGGING #
+server-id = 3306001
+log_bin                        = /data/mysqldb/binlog/mysql-bin
+expire-logs-days               = 7
+sync-binlog                    = 1
+max-binlog-size = 1G
+binlog-cache-size = 8M
+binlog-format = MIXED
+binlog-do-db = test
+binlog-ignore-db = information_schema
+binlog-ignore-db = mysql
+binlog-ignore-db = performance_schema
+binlog-ignore-db = sys
+
+# CACHES AND LIMITS #
+tmp-table-size                 = 256M
+max-heap-table-size            = 256M
+query-cache-type               = 0
+query-cache-size               = 0
+max-connections                = 15000
+thread-cache-size              = 100
+open-files-limit               = 655350
+table-definition-cache         = 2048
+table-open-cache               = 4096
+
+# INNODB #
+innodb-flush-method            = O_DIRECT
+innodb-log-files-in-group      = 2
+innodb-log-file-size           = 512M
+innodb-flush-log-at-trx-commit = 1
+innodb-file-per-table          = 1
+innodb-buffer-pool-size        = 48G
+
+
+# LOG #
+log_error   = /data/mysqldb/logs/3306-error.log
+log-queries-not-using-indexes  = 1
+slow-query-log                 = 1
+long-query-time = 3
+slow-query-log_file = /data/mysqldb/logs/mysql-slow-3306.log
