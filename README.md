@@ -27,6 +27,8 @@ service nginx start|stop|restart
 ##### 安装 redis-3.2.11 #####
 ```shell
 cd /data/src/ && ./redis.sh
+# 启动停止脚本
+service redis start|stop|restart
 ```
 ##### 安装PHP-7.2.5 #####
 ```shell
