@@ -3,7 +3,7 @@
 echo "安装PHP和Redis"
 
 cd /data/src
-yum -y install libevent libevent-devel bzip2 bzip2-devel libmcrypt libxml2 libxml2-devel libjpeg-devel libpng-devel freetype-devel openldap openldap-devel openjpeg-devel libxslt-devel icu libicu libicu-devel
+yum -y install libevent libevent-devel bzip2 bzip2-devel libmcrypt libxml2 libxml2-devel libjpeg-devel libpng-devel freetype-devel openldap openldap-devel openjpeg-devel libxslt-devel icu libicu libicu-devel libargon2 libargon2-devel
 
 echo "安装PHP包"
 cd /data/src
@@ -16,6 +16,7 @@ cd php-7.2.5
 --enable-opcache \
 --with-mysqli=mysqlnd \
 --with-pdo-mysql=mysqlnd \
+--with-password-argon2 \
 --with-openssl \
 --with-xsl \
 --with-curl \
