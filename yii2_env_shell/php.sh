@@ -16,7 +16,6 @@ cd php-7.2.5
 --enable-opcache \
 --with-mysqli=mysqlnd \
 --with-pdo-mysql=mysqlnd \
---with-password-argon2 \
 --with-openssl \
 --with-xsl \
 --with-curl \
@@ -24,6 +23,7 @@ cd php-7.2.5
 --with-iconv-dir \
 --with-kerberos \
 --with-libdir=/lib64 \
+--with-password-argon2 \
 --enable-shmop \
 --with-ldap \
 --enable-libxml \
@@ -37,6 +37,7 @@ cd php-7.2.5
 --with-bz2  \
 --with-zlib \
 --enable-sockets \
+--with-sodium \
 --enable-sysvsem \
 --enable-sysvshm \
 --enable-sysvmsg \

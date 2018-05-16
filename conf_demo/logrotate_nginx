@@ -1,0 +1,13 @@
+/usr/local/nginx/logs/*.log {
+  daily
+  dateext
+  rotate 10
+  missingok
+  notifempty
+  compress
+  sharedscripts
+  olddir /data/logs/nginx
+  postrotate
+      /etc/init.d/nginx reload
+  endscript
+}

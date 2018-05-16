@@ -1,0 +1,55 @@
+# httpd set
+set httpd port 2812 and
+    use address 127.0.0.1  # only accept connection from localhost
+    allow 127.0.0.1        # allow localhost to connect to the server and
+    allow admin:monit read-only # auth username password privilege
+
+# mail set
+set mail-format {
+   from: Monit Alert <yoursytem@gmail.com>
+   subject: $HOST -- $EVENT -- $SERVICE
+   message:
+
+   $EVENT Service $SERVICE
+
+   Date:        $DATE
+
+   Action:      $ACTION
+
+   Host:        $HOST
+
+   Description:
+
+   $DESCRIPTION
+
+
+   From your faithful employee --> Monit
+}
+
+#using TLSV1 with timeout 30 seconds
+set mailserver smtp.gmail.com port 587
+username "yoursytem@gmail.com" password "emailpassword"
+using TLSV1 with timeout 30 seconds
+
+# the person who will receive notification emails
+set alert youradmin@gmail.com
+
+
+# monit cpu memory
+check system $HOST
+    if loadavg (1min) > 10 then alert
+    if loadavg (5min) > 6 then alert
+    if memory usage > 80% then alert
+    if cpu usage (user) > 70% then alert
+    if cpu usage (system) > 60% then alert
+    if cpu usage (wait) > 75% then alert
+
+# monit disk
+check filesystem datafs with path /opt/yourpathfromdisk
+    if space usage > 80% then alert
+    group server
+
+# monit host port
+check host unique_name with address ipaddress
+    if failed port 443 then alert
+    if failed port 80 then alert

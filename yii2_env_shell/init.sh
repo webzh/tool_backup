@@ -33,7 +33,8 @@ mkdir -p /data/shell/install
 
 echo "安装依赖包"
 
-yum -y install lrzsz gcc-c++ vim wget zlib-devel openssl-devel ncurses-devel bison curl curl-devel libxml2-devel gd gd-devel gmp-devel libjpeg libpng freetype libjpeg-devel libpng-devel freetype-devel  libmcrypt libmcrypt-dev unzip zip git pcre pcre-devel zlib* openssl-devel lua* GeoIP* telnet telnet-server
+# 会安装 日志切割 软件 logrotate 以及 监控 monit
+yum -y install lrzsz gcc-c++ vim wget zlib-devel openssl-devel ncurses-devel bison curl curl-devel libxml2-devel gd gd-devel gmp-devel libjpeg libpng freetype libjpeg-devel libpng-devel freetype-devel  libmcrypt libmcrypt-dev unzip zip git pcre pcre-devel zlib* openssl-devel lua* GeoIP* telnet telnet-server logrotate monit
 
 echo '* soft nofile 65535'>>/etc/security/limits.conf
 echo '* hard nofile 65535'>>/etc/security/limits.conf
