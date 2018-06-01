@@ -4,7 +4,7 @@ yum -y install gcc-c++ epel-release lz4 lz4-devel
 
 echo "建立mysql用户及数据存放目录"
 
-groupadd mysql && useradd -g mysql mysql
+groupadd mysql && useradd -g mysql -s /sbin/nologin mysql
 mkdir -p /data/local
 mkdir -p /data/src
 mkdir -p /data/mysqldb/3306

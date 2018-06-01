@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "安装nginx"
-groupadd www && useradd -g www www
+groupadd www && useradd -g www -s /sbin/nologin www
 chown -R www:www /data/logs/nginx
 cd /data/src
 #git clone https://github.com/openresty/echo-nginx-module.git
