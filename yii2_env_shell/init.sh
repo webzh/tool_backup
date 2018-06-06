@@ -34,7 +34,7 @@ mkdir -p /data/shell/install
 echo "安装依赖包"
 
 # 会安装 日志切割 软件 logrotate 以及 监控 monit
-yum -y install lrzsz gcc-c++ vim wget zlib-devel openssl-devel ncurses-devel bison curl curl-devel libxml2-devel gd gd-devel gmp-devel libjpeg libpng freetype libjpeg-devel libpng-devel freetype-devel  libmcrypt libmcrypt-dev unzip zip git pcre pcre-devel zlib* openssl-devel lua* GeoIP* telnet telnet-server logrotate monit
+yum -y install lrzsz gcc-c++ vim wget zlib-devel openssl-devel ncurses-devel bison curl curl-devel libxml2-devel gd gd-devel gmp-devel libjpeg libpng freetype libjpeg-devel libpng-devel freetype-devel  libmcrypt libmcrypt-dev unzip zip pcre pcre-devel zlib* openssl-devel lua* GeoIP* telnet telnet-server logrotate monit
 
 echo '* soft nofile 65535'>>/etc/security/limits.conf
 echo '* hard nofile 65535'>>/etc/security/limits.conf
@@ -50,6 +50,14 @@ echo 'net.ipv4.tcp_keepalive_time = 600'>>/etc/sysctl.conf
 echo 'net.ipv4.tcp_max_syn_backlog = 8192'>>/etc/sysctl.conf
 
 sysctl -p
+
+# 删除系统的git，安装官方安全版本的git
+yum -y remove git
+cd /data/src/ && wget https://github.com/git/git/archive/v2.17.1.tar.gz
+tar zxvf v2.17.1.tar.gz
+cd git-2.17.1/ && autoconf && ./configure && make && make install
+echo '#add env'>>/etc/profile
+echo 'export PATH=$PATH:/usr/local/bin'>>/etc/profile
 
 currentPath=$(dirname $(readlink -f $0))
 
