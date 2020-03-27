@@ -9,13 +9,16 @@ sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 setenforce 0
 
 echo "系统时间设置"
+yum install -y ntp
 timedatectl set-timezone Asia/Shanghai
+timedatectl set-local-rtc 0
+timedatectl set-ntp yes
 timedatectl status
+
 yum -y install rdate ntpdate
 
-echo "时间更新脚本建立"
-echo  "*/3 * * * * rdate -t 60 -s stdtime.gov.hk >> /dev/null" >> /var/spool/cron/root
-echo  "*/10 * * * * ntpdate time.nist.gov >> /dev/null" >> /var/spool/cron/root
+echo  "*/10 * * * * ntpdate ntp1.aliyun.com >> /dev/null" >> /var/spool/cron/root
+
 
 echo "目录建立"
 
@@ -36,6 +39,12 @@ echo "安装依赖包"
 # 会安装 日志切割 软件 logrotate 以及 监控 monit
 yum -y install lrzsz gcc-c++ vim wget zlib-devel openssl-devel ncurses-devel bison curl curl-devel libxml2-devel gd gd-devel gmp-devel libjpeg libpng freetype libjpeg-devel libpng-devel freetype-devel  libmcrypt libmcrypt-dev unzip zip pcre pcre-devel zlib* openssl-devel lua* GeoIP* telnet telnet-server logrotate monit
 
+# ffmpeg
+yum -y install epel-release
+rpm -v --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro
+rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
+yum -y install ffmpeg ffmpeg-devel
+
 echo '* soft nofile 65535'>>/etc/security/limits.conf
 echo '* hard nofile 65535'>>/etc/security/limits.conf
 
@@ -50,14 +59,6 @@ echo 'net.ipv4.tcp_keepalive_time = 600'>>/etc/sysctl.conf
 echo 'net.ipv4.tcp_max_syn_backlog = 8192'>>/etc/sysctl.conf
 
 sysctl -p
-
-# 删除系统的git，安装官方安全版本的git
-yum -y remove git
-cd /data/src/ && wget https://github.com/git/git/archive/v2.17.1.tar.gz
-tar zxvf v2.17.1.tar.gz
-cd git-2.17.1/ && autoconf && ./configure && make && make install
-echo '#add env'>>/etc/profile
-echo 'export PATH=$PATH:/usr/local/bin'>>/etc/profile
 
 currentPath=$(dirname $(readlink -f $0))
 

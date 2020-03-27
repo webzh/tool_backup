@@ -5,18 +5,18 @@ groupadd www && useradd -g www -s /sbin/nologin www
 chown -R www:www /data/logs/nginx
 cd /data/src
 #git clone https://github.com/openresty/echo-nginx-module.git
-tar zxvf tengine-2.2.2.tar.gz
-cd /data/src/tengine-2.2.2
+wget http://nginx.org/download/nginx-1.17.7.tar.gz
+tar zxvf nginx-1.17.7.tar.gz
+cd /data/src/nginx-1.17.7
 ./configure \
 --prefix=/data/local/nginx \
 --with-http_ssl_module \
+--with-ipv6 \
 --with-pcre \
 --with-zlib= \
 --with-openssl= \
 --with-http_gzip_static_module \
 --with-file-aio \
---with-http_concat_module \
---with-http_footer_filter_module=shared \
 --with-http_stub_status_module \
 --with-http_sub_module \
 --with-http_realip_module \

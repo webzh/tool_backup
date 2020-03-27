@@ -68,21 +68,23 @@ chmod +x /etc/init.d/php-fpm
 echo "Install PHP-redis扩展"
 cd /data/src
 yum -y install autoconf
-tar zxvf redis-4.0.2.tgz
-cd redis-4.0.2 && /usr/local/php/bin/phpize && ./configure --with-php-config=/usr/local/php/bin/php-config && make && make install
+wget http://pecl.php.net/get/redis-5.0.2.tgz
+tar zxvf redis-5.0.2.tgz
+cd redis-5.0.2 && /usr/local/php/bin/phpize && ./configure --with-php-config=/usr/local/php/bin/php-config && make && make install
 
 echo "安装ImageMagick扩展"
 yum -y install ImageMagick ImageMagick-devel
 cd /data/src/
-tar zxvf imagick-3.4.3.tgz
-cd imagick-3.4.3
+wget http://pecl.php.net/get/imagick-3.4.4.tgz
+tar zxvf imagick-3.4.4.tgz
+cd imagick-3.4.4
 /usr/local/php/bin/phpize
 ./configure --with-php-config=/usr/local/php/bin/php-config --with-imagick
 make && make install
 
 cd /data/src
 echo "修改php.ini文件"
-sed -i '/;extension=xsl/aextension=redis.so\nextension=imagick.so\n\nzend_extension=opcache.so\nopcache.enable=1\nopcache.enable_cli=1' /usr/local/php/etc/php.ini
+sed -i '/;extension=php_xsl.dll/aextension=redis.so\nextension=imagick.so\n\nzend_extension=opcache.so\nopcache.enable=1\nopcache.enable_cli=1' /usr/local/php/etc/php.ini
 sed -i 's/expose_php = On/expose_php = Off/g' /usr/local/php/etc/php.ini
 sed -i 's/;date.timezone =/date.timezone = Asia\/Shanghai/g' /usr/local/php/etc/php.ini
 sed -i 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /usr/local/php/etc/php.ini
