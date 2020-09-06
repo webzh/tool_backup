@@ -8,6 +8,14 @@ echo "关闭Selinux"
 sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 setenforce 0
 
+echo "关闭防火墙"
+systemctl stop firewalld.service
+systemctl disable firewalld.service
+
+echo "安装nodejs"
+curl --silent --location https://rpm.nodesource.com/setup_12.x|bash -
+yum install -y nodejs
+
 echo "系统时间设置"
 yum install -y ntp
 timedatectl set-timezone Asia/Shanghai
