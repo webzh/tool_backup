@@ -49,8 +49,7 @@ yum -y install lrzsz gcc-c++ vim wget zlib-devel openssl-devel ncurses-devel bis
 
 # ffmpeg
 yum -y install epel-release
-rpm -v --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro
-rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
+yum -y localinstall --nogpgcheck https://download1.rpmfusion.org/free/el/rpmfusion-free-release-7.noarch.rpm
 yum -y install ffmpeg ffmpeg-devel
 
 echo '* soft nofile 65535'>>/etc/security/limits.conf
