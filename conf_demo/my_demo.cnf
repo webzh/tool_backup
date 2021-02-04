@@ -65,7 +65,7 @@ innodb-buffer-pool-size         = 1G
 
 # LOG #
 log_error   = /data/mysqldb/logs/3306-error.log
-log-queries-not-using-indexes  = 1
+#log-queries-not-using-indexes  = 1
 slow-query-log                 = 1
 long-query-time = 3
 slow-query-log_file = /data/mysqldb/logs/mysql-slow-3306.log
