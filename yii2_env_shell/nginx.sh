@@ -34,3 +34,5 @@ cp /data/src/nginx /etc/init.d/
 chkconfig --add nginx
 chkconfig nginx on
 service nginx start
+
+mkdir -p /data/local/nginx/site

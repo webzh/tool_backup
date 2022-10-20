@@ -97,3 +97,5 @@ echo "安装composer"
 cd /data/src
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
+composer self-update 1.0.0-alpha11
+composer clear-cache
