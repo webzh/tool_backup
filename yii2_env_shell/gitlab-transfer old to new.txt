@@ -1,0 +1,50 @@
+gitlab-transfer old to new
+
+Because of the policy of GITS Indonesia, we have to migrate the GitLab server to another server. In this case, we used the Google Cloud Platform Compute Engine for the new server.
+When migrating GitLab to a new server, we might face much problems of in-compatible versions; different operating system (so needs different latest GitLab version); etc. There are two ways to migrate the GitLab. First way is to upgrade the old version to the same latest GitLab version, backup GitLab, and we can migrate to new server. The second way is to install GitLab on a new server with the same version as the old server. We choose the second way for the safety.
+So, this is how to do it.
+First, we create a new server on GCP with Ubuntu Server 18.04, meanwhile the old server still use Ubuntu Server 14.04. And the GitLab version that we use is 11.4.5.
+On Old Server
+On the old server, do these steps.
+Shut down GitLab service
+sudo gitlab-ctl stop unicorn
+sudo gitlab-ctl stop sidekiq
+Back up GitLab on old server
+sudo gitlab-rake gitlab:backup:create
+Create a folder named gitlab-old on the server
+mkdir gitlab-old
+Copy the GitLab file configuration on folder /etc/gitlab (gitlab.rb and gitlab-secrets.json) and folder /etc/gitlab/ssl to ~/gitlab-old
+sudo cp /etc/gitlab/gitlab.rb ~/gitlab-old
+sudo cp /etc/gitlab/gitlab-secrets.json ~/gitlab-old
+sudo cp -R /etc/gitlab/ssl ~/gitlab-old
+Copy the backup file to folder ~/gitlab-old
+sudo cp /var/opt/gitlab/backups/XXXXXXXXXX_gitlab_backup.tar
+Change permission and ownership of ~/gitlab-old
+sudo chown user:user -R ~/gitlab-old
+Transfer gitlab-old folder to new server
+scp -r ~/gitlab-old user@<new_server_ip>:~
+On New Server
+On the new server, do these steps.
+Install the new server with GitLab 11.4.5.
+Add GitLab source with:
+curl -s https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash
+Update and install GitLab 11.4.5 with:
+sudo apt-get install gitlab-ce=11.4.5-ce.0
+Copy the configuration file to folder /etc/gitlab
+sudo cp gitlab-old/gitlab* /etc/GitLab
+Copy the ssl folder to folder /etc/gitlab
+sudo cp -R gitlab-old/ssl /etc/GitLab
+Run GitLab service for the first time
+sudo gitlab-ctl reconfigure
+Shut down GitLab service
+sudo gitlab-ctl stop unicorn
+sudo gitlab-ctl stop sidekiq
+Copy backup file to /var/opt/gitlab/backups, then change ownership and permission to git user
+sudo cp gitlab-old/XXXXXXXXXX_gitlab_backup.tar /var/opt/gitlab/backups
+sudo chown git:git /var/opt/gitlab/backups/XXXXXXXXXX_gitlab_backup.tar
+Run the GitLab restore process
+sudo gitlab-rake gitlab:backup:restore BACKUP=XXXXXXXXX
+Restart GitLab and check
+sudo gitlab-ctl start
+sudo gitlab-rake gitlab:check SANITIZE=true
+That’s it! It should be running well. If you have further question, you can leave your comment below.

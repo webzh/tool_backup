@@ -26,6 +26,8 @@ make && make install
 echo "设置Nginx软链接"
 ln -s /data/local/nginx /usr/local/nginx
 
+mkdir -p /data/local/nginx/site
+
 echo "复制service启动脚本"
 cp /data/src/nginx /etc/init.d/
 
