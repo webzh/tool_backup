@@ -24,7 +24,8 @@ tar zxvf cmake-3.8.0.tar.gz && cd ./cmake-3.8.0
 echo "安装MySQL"
 cd /data/src
 wget https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-boost-8.0.31.tar.gz
-tar zxvf mysql-boost-8.0.31.tar.gz && cd mysql-8.0.31/
+tar zxvf mysql-boost-8.0.31.tar.gz
+cd /data/src/mysql-8.0.31/
 /data/local/cmake/bin/cmake \
 -DWITH_BOOST=./boost/ \
 -DCMAKE_C_COMPILER=/usr/bin/gcc \
