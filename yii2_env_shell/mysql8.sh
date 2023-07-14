@@ -45,7 +45,7 @@ cd /data/src/mysql-8.0.31/
 -DWITHOUT_ARCHIVE_STORAGE_ENGINE=1 \
 -DFORCE_INSOURCE_BUILD=1
 
-make j4 && make install
+make && make install
 
 make clean
 
