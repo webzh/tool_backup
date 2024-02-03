@@ -17,8 +17,6 @@ echo 'export GOPROXY=https://goproxy.cn'>>/etc/profile
 echo 'export GOROOT=/usr/lib/go'>>/etc/profile
 echo 'export GOPATH=/data/htdocs/goproject'>>/etc/profile
 echo 'export PATH=$PATH:$GOROOT/bin'>>/etc/profile
-echo 'export PROJECT_TI_ENV=prod'>>/etc/profile
-echo 'export PROJECT_NAMIDATA_ENV=prod'>>/etc/profile
 echo 'export GO111MODULE=on'>>/etc/profile
 
 

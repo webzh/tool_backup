@@ -12,9 +12,14 @@ echo "关闭防火墙"
 systemctl stop firewalld.service
 systemctl disable firewalld.service
 
-echo "安装nodejs"
-curl --silent --location https://rpm.nodesource.com/setup_12.x|bash -
-yum install -y nodejs
+echo "升级默认git版本"
+cd /data/src
+
+yum remove git
+yum remove git-*
+
+wget http://opensource.wandisco.com/centos/7/git/x86_64/git-2.41.0-1.WANdisco.x86_64.rpm
+yum localinstall git-2.41.0-1.WANdisco.x86_64.rpm
 
 echo "系统时间设置"
 yum install -y ntp

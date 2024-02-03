@@ -31,9 +31,9 @@ curl -s https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script
 Update and install GitLab 11.4.5 with:
 sudo apt-get install gitlab-ce=11.4.5-ce.0
 Copy the configuration file to folder /etc/gitlab
-sudo cp gitlab-old/gitlab* /etc/GitLab
+sudo cp gitlab-old/gitlab* /etc/gitlab
 Copy the ssl folder to folder /etc/gitlab
-sudo cp -R gitlab-old/ssl /etc/GitLab
+sudo cp -R gitlab-old/ssl /etc/gitlab
 Run GitLab service for the first time
 sudo gitlab-ctl reconfigure
 Shut down GitLab service
