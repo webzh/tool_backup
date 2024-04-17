@@ -1,4 +1,7 @@
 #!/bin/bash
+
+echo "command >out.file 2>&1 &"
+
 echo "支持lz4 压缩算法，mysql 8 mysqlpump 导出 指定算法"
 yum -y install epel-release lz4 lz4-devel ncurses-devel bison openssl-devel
 

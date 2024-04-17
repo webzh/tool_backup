@@ -18,8 +18,11 @@ cd /data/src
 yum remove git
 yum remove git-*
 
-wget http://opensource.wandisco.com/centos/7/git/x86_64/git-2.41.0-1.WANdisco.x86_64.rpm
-yum localinstall git-2.41.0-1.WANdisco.x86_64.rpm
+rpm -ivh http://opensource.wandisco.com/centos/7/git/x86_64/wandisco-git-release-7-1.noarch.rpm
+yum install -y git
+
+curl --silent --location https://rpm.nodesource.com/setup_16.x | bash
+yum install nodejs -y
 
 echo "系统时间设置"
 yum install -y ntp
@@ -56,9 +59,9 @@ yum -y install lrzsz gcc-c++ vim wget zlib-devel openssl-devel ncurses-devel bis
 #rpm -v --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro
 #rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
 #yum -y install ffmpeg ffmpeg-devel
-yum -y install epel-release
-yum -y localinstall --nogpgcheck https://download1.rpmfusion.org/free/el/rpmfusion-free-release-7.noarch.rpm
-yum -y install ffmpeg ffmpeg-devel
+#yum -y install epel-release
+#yum -y localinstall --nogpgcheck https://download1.rpmfusion.org/free/el/rpmfusion-free-release-7.noarch.rpm
+#yum -y install ffmpeg ffmpeg-devel
 
 echo '* soft nofile 65535'>>/etc/security/limits.conf
 echo '* hard nofile 65535'>>/etc/security/limits.conf
